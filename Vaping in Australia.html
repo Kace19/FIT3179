@@ -1,0 +1,440 @@
+<!DOCTYPE html>
+<!-- saved from url=(0043)file:///C:/Users/Kacey/Downloads/index.html -->
+<html lang="en"><head><meta http-equiv="Content-Type" content="text/html; charset=UTF-8"><style id="vega-tooltip-style">#vg-tooltip-element {
+  visibility: hidden;
+  padding: 8px;
+  position: fixed;
+  z-index: 1000;
+  font-family: sans-serif;
+  font-size: 11px;
+  border-radius: 3px;
+  box-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+  /* The default theme is the light theme. */
+  background-color: rgba(255, 255, 255, 0.95);
+  border: 1px solid #d9d9d9;
+  color: black;
+}
+#vg-tooltip-element.visible {
+  visibility: visible;
+}
+#vg-tooltip-element h2 {
+  margin-top: 0;
+  margin-bottom: 10px;
+  font-size: 13px;
+}
+#vg-tooltip-element table {
+  border-spacing: 0;
+}
+#vg-tooltip-element table tr {
+  border: none;
+}
+#vg-tooltip-element table tr td {
+  overflow: hidden;
+  text-overflow: ellipsis;
+  padding-top: 2px;
+  padding-bottom: 2px;
+}
+#vg-tooltip-element table tr td.key {
+  color: #808080;
+  max-width: 150px;
+  text-align: right;
+  padding-right: 4px;
+}
+#vg-tooltip-element table tr td.value {
+  display: block;
+  max-width: 300px;
+  max-height: 7em;
+  text-align: left;
+}
+#vg-tooltip-element.dark-theme {
+  background-color: rgba(32, 32, 32, 0.9);
+  border: 1px solid #f5f5f5;
+  color: white;
+}
+#vg-tooltip-element.dark-theme td.key {
+  color: #bfbfbf;
+}
+</style>
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Vaping in Australia</title>
+
+  <!-- Vega libraries -->
+  <script src="./Vaping in Australia_files/vega@5"></script>
+  <script src="./Vaping in Australia_files/vega-lite@5"></script>
+  <script src="./Vaping in Australia_files/vega-embed@6"></script>
+
+  <style>
+    :root{
+      --bg:#0f172a; --panel:#111827; --text:#e5e7eb; --muted:#94a3b8;
+      --accent:#a10827; --accent-2:#d43958; --accent-3:#e6acb8;
+      --card:#0b1220; --border:#1f2937;
+    }
+    *{box-sizing:border-box}
+    html,body{height:100%}
+    body{
+      margin:0; background:radial-gradient(1200px 800px at 10% -10%, #111827 0%, #0f172a 35%, #0b1020 100%);
+      color:var(--text); font-family:ui-sans-serif, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial;
+      line-height:1.5;
+    }
+    header{padding:32px 20px 16px; border-bottom:1px solid var(--border); background:linear-gradient(180deg, rgba(255,255,255,.02), transparent)}
+    .wrap{max-width:1100px; margin:0 auto; padding:0 16px}
+    .title{font-size:clamp(24px,3.2vw,36px); font-weight:800; letter-spacing:-.01em}
+    .subtitle{margin-top:6px; color:var(--muted); font-size:14px}
+    main{padding:24px 0 60px}
+    .grid{display:grid; grid-template-columns:1fr; gap:20px}
+    @media (min-width:960px){ .grid{grid-template-columns:1fr 1fr} }
+    .card{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow:0 10px 30px rgba(0,0,0,.25)}
+    .card h2{margin:0 0 10px; font-size:18px; font-weight:700; letter-spacing:-.01em}
+    .note{margin-top:8px; font-size:12px; color:var(--muted)}
+    .legend{display:inline-flex; gap:8px; align-items:center; padding:6px 10px; border:1px solid var(--border); border-radius:999px; background:rgba(0,0,0,.15); font-size:12px; color:var(--muted)}
+    footer{border-top:1px solid var(--border); color:var(--muted); font-size:12px; padding:16px; text-align:center}
+    .vega-actions{display:none!important}
+  </style>
+<style id="vega-embed-style">.vega-embed {
+  position: relative;
+  display: inline-block;
+  box-sizing: border-box;
+}
+.vega-embed.has-actions {
+  padding-right: 38px;
+}
+.vega-embed details:not([open]) > :not(summary) {
+  display: none !important;
+}
+.vega-embed summary {
+  list-style: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  padding: 6px;
+  z-index: 1000;
+  background: white;
+  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.1);
+  color: #1b1e23;
+  border: 1px solid #aaa;
+  border-radius: 999px;
+  opacity: 0.2;
+  transition: opacity 0.4s ease-in;
+  cursor: pointer;
+  line-height: 0px;
+}
+.vega-embed summary::-webkit-details-marker {
+  display: none;
+}
+.vega-embed summary:active {
+  box-shadow: #aaa 0px 0px 0px 1px inset;
+}
+.vega-embed summary svg {
+  width: 14px;
+  height: 14px;
+}
+.vega-embed details[open] summary {
+  opacity: 0.7;
+}
+.vega-embed:hover summary, .vega-embed:focus-within summary {
+  opacity: 1 !important;
+  transition: opacity 0.2s ease;
+}
+.vega-embed .vega-actions {
+  position: absolute;
+  z-index: 1001;
+  top: 35px;
+  right: -9px;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: 8px;
+  padding-top: 8px;
+  border-radius: 4px;
+  box-shadow: 0 2px 8px 0 rgba(0, 0, 0, 0.2);
+  border: 1px solid #d9d9d9;
+  background: white;
+  animation-duration: 0.15s;
+  animation-name: scale-in;
+  animation-timing-function: cubic-bezier(0.2, 0, 0.13, 1.5);
+  text-align: left;
+}
+.vega-embed .vega-actions a {
+  padding: 8px 16px;
+  font-family: sans-serif;
+  font-size: 14px;
+  font-weight: 600;
+  white-space: nowrap;
+  color: #434a56;
+  text-decoration: none;
+}
+.vega-embed .vega-actions a:hover, .vega-embed .vega-actions a:focus {
+  background-color: #f7f7f9;
+  color: black;
+}
+.vega-embed .vega-actions::before, .vega-embed .vega-actions::after {
+  content: "";
+  display: inline-block;
+  position: absolute;
+}
+.vega-embed .vega-actions::before {
+  left: auto;
+  right: 14px;
+  top: -16px;
+  border: 8px solid rgba(0, 0, 0, 0);
+  border-bottom-color: #d9d9d9;
+}
+.vega-embed .vega-actions::after {
+  left: auto;
+  right: 15px;
+  top: -14px;
+  border: 7px solid rgba(0, 0, 0, 0);
+  border-bottom-color: #fff;
+}
+.vega-embed .chart-wrapper.fit-x {
+  width: 100%;
+}
+.vega-embed .chart-wrapper.fit-y {
+  height: 100%;
+}
+
+.vega-embed-wrapper {
+  max-width: 100%;
+  overflow: auto;
+  padding-right: 14px;
+}
+
+@keyframes scale-in {
+  from {
+    opacity: 0;
+    transform: scale(0.6);
+  }
+  to {
+    opacity: 1;
+    transform: scale(1);
+  }
+}
+</style></head>
+<body>
+  <header>
+    <div class="wrap">
+      <div class="title">E-Cigarettes in Australia</div>
+    </div>
+  </header>
+
+  <main>
+    <div class="wrap">
+      <div class="subtitle">
+        The use of vapes has increased rapidly in recent years, particularly among young people.
+        Evidence shows a strong association between vaping and future smoking behaviours. Research indicates that young people who vape, but have never smoked, are more likely to take up tobacco smoking compared to young people who have never vaped. As with smoking, being around people who vape means you can also breathe in second-hand aerosols from vapes.
+        Research also shows that many e-cigarette users appear to continue using conventional tobacco products at the same time (dual users).
+      </div>
+
+      <div class="grid">
+        <!-- Card 1: Choropleth map -->
+        <section class="card">
+          <h2>Australian States, population of e-cigarettes users (2022–2023)</h2>
+          <div id="vis-map" class="vega-embed" role="graphics-document" aria-roledescription="visualization" aria-label="Vega visualization"><canvas width="662" height="462" class="marks" style="width: 530px; height: 370px;"></canvas><form class="vega-bindings"></form></div>
+	  <div class="note">Map Visualisation of the proportion of the population in use of e-cigarettes in Australia.</div>
+        </section>
+
+        <!-- Card 2: Status by state (controls) -->
+        <section class="card">
+          <h2>Status of the use of E-cigarettes in Australian States</h2>
+          <div class="legend">
+            <span style="width:10px;height:10px;border-radius:50%;background:#a10827;display:inline-block"></span> Currently use
+            <span style="width:10px;height:10px;border-radius:50%;background:#d43958;display:inline-block;margin-left:10px"></span> Used to use
+            <span style="width:10px;height:10px;border-radius:50%;background:#e6acb8;display:inline-block;margin-left:10px"></span> Tried once/twice
+            <span style="width:10px;height:10px;border-radius:50%;background:#ffd4dc;display:inline-block;margin-left:10px"></span> Never used
+          </div>
+          <div id="vis-bars" style="margin-top: 10px; cursor: default;" class="vega-embed" role="graphics-document" aria-roledescription="visualization" aria-label="Vega visualization"><canvas width="792" height="572" class="marks" style="width: 634px; height: 458px;"></canvas><form class="vega-bindings"><div class="vega-bind"><label><span class="vega-bind-name">Year:</span><select name="Yr"><option value="2016">2016</option><option value="2019">2019</option><option value="2022-2023" selected="true">2022-2023</option></select></label></div><div class="vega-bind"><label><span class="vega-bind-name"> Currently use</span><input type="checkbox" name="chkUse" checked="true"></label></div><div class="vega-bind"><label><span class="vega-bind-name"> Used to use</span><input type="checkbox" name="chkPast" checked="true"></label></div><div class="vega-bind"><label><span class="vega-bind-name"> Tried once/twice</span><input type="checkbox" name="chkTried" checked="true"></label></div><div class="vega-bind"><label><span class="vega-bind-name"> Never used</span><input type="checkbox" name="chkNever" checked="true"></label></div></form></div>
+          <div class="note">Use the year dropdown and checkboxes to filter.</div>
+        </section>
+
+        <!-- Card 3: Frequency by age (chart) -->
+        <section class="card">
+          <h2>Vaping frequency by age group</h2>
+          <div id="vis-frequency-bars" class="vega-embed" role="graphics-document" aria-roledescription="visualization" aria-label="Vega visualization" style="cursor: default;"><canvas width="705" height="613" class="marks" style="width: 564px; height: 491px;"></canvas><form class="vega-bindings"></form></div>
+          <div class="note">Grouped by frequency within each age group.</div>
+        </section>
+
+        <!-- Card 4: Text next to the chart -->
+        <section class="card" aria-labelledby="insight-heading">
+          <h2 id="insight-heading">Are young people struggling to control their e-cigarette use?</h2>
+          <p>Overall, young people were less likely to report being unable to control their e-cigarette use than the rest of the Australian population.</p>
+          <p>In 2022–2023, among all people who were currently using e-cigarettes, <strong>29%</strong> reported that they couldn’t stop or cut down on their use of e-cigarettes, even though they wanted to or tried to. Among young people, the proportions were similar: <strong>31%</strong> for people aged 14 to 17, and <strong>32%</strong> for people aged 18 to 24.</p>
+          <p>People who had used e-cigarettes in the past 30 days reported that they used them on an average of <strong>15 days</strong> during the past 30 days. People aged 14 to 17 had used them <strong>13 days</strong> on average during the past 30 days, while people aged 18 to 24 had done so an average of <strong>14 days</strong>.</p>
+          <p>Almost <strong>1 in 4 (23%)</strong> people aged 14 to 17 who were currently using e-cigarettes reported that they used e-cigarettes every day during the past 30 days. For people aged 18 to 24, it was similar (<strong>26%</strong>). These proportions were lower than other age groups.</p>
+        </section>
+      </div>
+    </div>
+  </main>
+
+  <footer>FIT3179 Assignment 2 Kam Ying Hey 34726888</footer>
+
+<script>
+// ===== Choropleth (states filled) =====
+const mapSpec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 520, "height": 360,
+  "projection": {"type": "equalEarth"},
+  "layer": [
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/Kace19/FIT3179/main/ne_110m_admin_0_countries.json",
+        "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
+      },
+      "mark": {"type": "geoshape", "fill": "lightsteelblue", "stroke": "white", "strokeWidth": 0.5}
+    },
+    {
+      "data": {
+        "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson",
+        "format": {"type": "json"}
+      },
+      "transform": [
+        {
+          "lookup": "properties.STATE_NAME",
+          "from": {
+            "data": {
+              "url": "https://raw.githubusercontent.com/Kace19/FIT3179/main/state_values_2022_2023.csv",
+              "format": {"type": "csv"}
+            },
+            "key": "StateFull",
+            "fields": ["Percent"]
+          }
+        },
+        { "calculate": "toNumber(datum.Percent)", "as": "PercentNum" }
+      ],
+      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.8},
+      "encoding": {
+        "color": {
+          "field": "PercentNum", "type": "quantitative",
+          "title": "Currently use (%)",
+          "scale": {"scheme": "reds", "domain": [0, 10]}
+        },
+        "tooltip": [
+          {"field": "properties.STATE_NAME", "title": "State"},
+          {"field": "PercentNum", "format": ".1f", "title": "Currently use (%)"}
+        ]
+      }
+    }
+  ]
+};
+
+// ===== Grouped bars with controls (by state) =====
+const barsSpec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 520, "height": 360,
+  "data": {
+    "url": "https://raw.githubusercontent.com/Kace19/FIT3179/main/ByState.csv",
+    "format": {"type": "csv"}
+  },
+  "params":[
+    { "name":"Yr", "value":"2022-2023",
+      "bind":{"input":"select","options":["2016","2019","2022-2023"],"name":"Year:"} },
+    { "name":"chkUse","value":true,"bind":{"input":"checkbox","name":" Currently use"} },
+    { "name":"chkPast","value":true,"bind":{"input":"checkbox","name":" Used to use"} },
+    { "name":"chkTried","value":true,"bind":{"input":"checkbox","name":" Tried once/twice"} },
+    { "name":"chkNever","value":true,"bind":{"input":"checkbox","name":" Never used"} }
+  ],
+  "transform": [
+    {
+      "fold": [
+        "NSW 2016","NSW 2019","NSW 2022-2023",
+        "VIC 2016","VIC 2019","VIC 2022-2023",
+        "QLD 2016","QLD 2019","QLD 2022-2023",
+        "WA 2016","WA 2019","WA 2022-2023",
+        "SA 2016","SA 2019","SA 2022-2023",
+        "TAS 2016","TAS 2019","TAS 2022-2023",
+        "ACT 2016","ACT 2019","ACT 2022-2023",
+        "NT 2016","NT 2019","NT 2022-2023",
+        "AUS 2016","AUS 2019","AUS 2022-2023"
+      ],
+      "as": ["key","value"]
+    },
+    {"calculate": "split(datum.key, ' ')[0]", "as": "State"},
+    {"calculate": "slice(datum.key, indexof(datum.key,' ') + 1)", "as": "YearFromKey"},
+    {"calculate": "replace(datum.YearFromKey, '–', '-')", "as": "YearNorm"},
+    {"calculate": "toNumber(datum.value)", "as": "Percent"},
+    {"filter": "datum.YearNorm === Yr"},
+    {
+      "filter": "(datum['E-cigarette status'] == 'Currently use electronic cigarettes' && chkUse) || (datum['E-cigarette status'] == 'I used to use them, but no longer use' && chkPast) || (datum['E-cigarette status'] == 'I only tried them once or twice' && chkTried) || (datum['E-cigarette status'] == 'Never used' && chkNever)"
+    }
+  ],
+  "mark": {"type": "bar"},
+  "encoding": {
+    "x": {"field": "State", "type": "nominal", "axis": {"labelAngle": -30}},
+    "xOffset": {"field": "E-cigarette status"},
+    "y": {"field": "Percent", "type": "quantitative", "title": "Percent"},
+    "color": {
+      "field": "E-cigarette status",
+      "type": "nominal",
+      "title": "Status",
+      "scale": {
+        "domain": [
+          "Currently use electronic cigarettes",
+          "I used to use them, but no longer use",
+          "I only tried them once or twice",
+          "Never used"
+        ],
+        "range": ["#a10827", "#d43958", "#e6acb8", "#ffd4dc"]
+      },
+      "legend": {"orient": "top"}
+    }
+  },
+  "config": {"view": {"stroke": null}}
+};
+
+// ===== Grouped bars — frequency by age =====
+const freqBarsSpec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "width": 520, "height": 360,
+  "data": {
+    "url": "https://raw.githubusercontent.com/Kace19/FIT3179/main/frequency_by_age.csv",
+    "format": {"type": "csv"}
+  },
+  "mark": {"type": "bar"},
+  "encoding": {
+    "x": {
+      "field": "age_group",
+      "type": "ordinal",
+      "sort": ["14-17","18-24","25-29","30-39","40-49","50-59","60+","14+"],
+      "axis": {"title": "Age group"}
+    },
+    "y": {
+      "field": "proportion",
+      "type": "quantitative",
+      "title": "Proportion (%)"
+    },
+    "xOffset": {"field": "frequency"},
+    "color": {
+      "field": "frequency",
+      "type": "nominal",
+      "title": "Frequency (past 30 days)",
+      "scale": {
+        "domain": [
+          "Once (1 day)",
+          "Every couple of weeks (2-3 days)",
+          "Once or twice a week (4-10 days)",
+          "A few days per week (11-21 days)",
+          "Most days per week (22-29 days)",
+          "Every day (30 days)"
+        ],
+        "range": ["#a10827", "#d43958", "#e6acb8", "#ffd4dc", "#7dd3fc", "#60a5fa"]
+      },
+      "legend": {"orient": "top", "columns": 2}
+    },
+    "tooltip": [
+      {"field": "age_group", "title": "Age group"},
+      {"field": "frequency", "title": "Frequency"},
+      {"field": "proportion", "type": "quantitative", "title": "Proportion (%)", "format": ".1f"}
+    ],
+    "order": {"field": "frequency", "type": "ordinal"}
+  },
+  "config": {"view": {"stroke": null}}
+};
+
+// ===== Embed all visualizations =====
+vegaEmbed("#vis-map", mapSpec, {actions:false});
+vegaEmbed("#vis-bars", barsSpec, {actions:false});
+vegaEmbed("#vis-frequency-bars", freqBarsSpec, {actions:false});
+</script>
+
+
+
+</body></html>
