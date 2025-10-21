@@ -5,7 +5,6 @@
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <title>Vaping in Australia</title>
 
-  <!-- Vega libraries -->
   <script src="https://cdn.jsdelivr.net/npm/vega@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-lite@5"></script>
   <script src="https://cdn.jsdelivr.net/npm/vega-embed@6"></script>
@@ -18,7 +17,6 @@
     }
     *{box-sizing:border-box}
     html,body{height:100%}
-    /* NEW: stop horizontal scroll just in case */
     html, body { overflow-x: hidden; }
 
     body{
@@ -108,54 +106,64 @@
 /* ===== Choropleth (states filled) ===== */
 const mapSpec = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  /* responsive */
-  "width": "container",
-  "height": 360,
-  "autosize": {"type":"fit","contains":"padding"},
-  "projection": {"type": "equalEarth"},
+  "width": 800,
+  "height": 450,
+  "title": "Vaping amongst Australian States (Currently use, 2022-2023)",
+  "projection": {"type": "mercator"},
   "layer": [
     {
       "data": {
         "url": "https://raw.githubusercontent.com/Kace19/FIT3179/main/ne_110m_admin_0_countries.json",
         "format": {"type": "topojson", "feature": "ne_110m_admin_0_countries"}
       },
-      "mark": {"type": "geoshape", "fill": "lightsteelblue", "stroke": "white", "strokeWidth": 0.5}
+      "mark": {"type": "geoshape", "fill": "#285d9e", "stroke": "white"}
     },
     {
       "data": {
         "url": "https://raw.githubusercontent.com/rowanhogan/australian-states/master/states.geojson",
-        "format": {"type": "json"}
+        "format": {"property": "features"}
       },
       "transform": [
         {
-          "lookup": "properties.STATE_NAME",
+          "lookup": "properties.State_NAME",
           "from": {
             "data": {
-              "url": "https://raw.githubusercontent.com/Kace19/FIT3179/main/state_values_2022_2023.csv",
-              "format": {"type": "csv"}
+              "values": [
+                {"STATE_NAME": "New South Wales", "Percent": 7.9},
+                {"STATE_NAME": "Victoria", "Percent": 7.0},
+                {"STATE_NAME": "Queensland", "Percent": 6.9},
+                {"STATE_NAME": "Western Australia", "Percent": 6.9},
+                {"STATE_NAME": "South Australia", "Percent": 4.9},
+                {"STATE_NAME": "Tasmania", "Percent": 3.7},
+                {"STATE_NAME": "Australian Capital Territory", "Percent": 5.7},
+                {"STATE_NAME": "Northern Territory", "Percent": 6.6}
+              ]
             },
-            "key": "StateFull",
+            "key": "STATE_NAME",
             "fields": ["Percent"]
           }
         },
-        { "calculate": "toNumber(datum.Percent)", "as": "PercentNum" }
+        {"calculate": "toNumber(datum.Percent)/100", "as": "percent"}
       ],
-      "mark": {"type": "geoshape", "stroke": "white", "strokeWidth": 0.8},
+      "mark": {"type":"geoshape","stroke":"white"},
       "encoding": {
         "color": {
-          "field": "PercentNum", "type": "quantitative",
-          "title": "Currently use (%)",
-          "scale": {"scheme": "reds", "domain": [0, 10]}
+          "field": "percent","type":"quantitative",
+          "scale":{"scheme":"darkred"},
+          "legend":{
+            "title":null,
+            "format":".1%"
+          }
         },
         "tooltip": [
-          {"field": "properties.STATE_NAME", "title": "State"},
-          {"field": "PercentNum", "format": ".1f", "title": "Currently use (%)"}
+          {"field": "properties.STATE_NAME", "type": "nominal", "title": "State"},
+          {"field": "Percent", "type": "quantitative", "format": ".1f", "title": "Vaping (%)"}
         ]
-      }
+    }  
     }
-  ],
-  "config": {"view": {"stroke": null}}
+  ]
 };
+
 
 /* ===== Grouped bars with controls (by state) ===== */
 const barsSpec = {
