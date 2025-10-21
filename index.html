@@ -30,7 +30,6 @@
     .subtitle{margin-top:6px; color:var(--muted); font-size:14px}
     main{padding:24px 0 60px}
     .grid{display:grid; grid-template-columns:1fr; gap:20px}
-    @media (min-width:960px){ .grid{grid-template-columns:1fr 1fr} }
     .card{background:linear-gradient(180deg, rgba(255,255,255,.03), rgba(255,255,255,.01)); border:1px solid var(--border); border-radius:16px; padding:16px; box-shadow:0 10px 30px rgba(0,0,0,.25)}
     .card h2{margin:0 0 10px; font-size:18px; font-weight:700; letter-spacing:-.01em}
     .note{margin-top:8px; font-size:12px; color:var(--muted)}
@@ -38,17 +37,17 @@
     footer{border-top:1px solid var(--border); color:var(--muted); font-size:12px; padding:16px; text-align:center}
     .vega-actions{display:none!important}
 
-    /* NEW: make bindings wrap on small screens */
+    /* controls wrap on small screens */
     .vega-bindings { display:flex; flex-wrap:wrap; gap:8px; }
     .vega-bind { margin:0; }
-    /* Ensure embed containers don’t exceed card width */
+    /* ensure embeds fit cards */
     .vega-embed, .vega-embed-wrapper { width:100% !important; max-width:100% !important; }
   </style>
 </head>
 <body>
   <header>
     <div class="wrap">
-      <div class="title">E-Cigarettes in Australia</div>
+      <div class="title">The use of E-Cigarettes in Australia</div>
     </div>
   </header>
 
@@ -60,18 +59,18 @@
         Research also shows that many e-cigarette users appear to continue using conventional tobacco products at the same time (dual users).
       </div>
 
-      <div class="grid">
+      <div class="grid stack">
         <!-- Card 1: Choropleth map -->
-        <section class="card">
-          <h2>Australian States, population of e-cigarettes users (2022–2023)</h2>
+        <section class="card" aria-labelledby="map-heading">
+          <h2 id="map-heading">Australian States, population of e-cigarettes users (2022–2023)</h2>
           <div id="vis-map" class="vega-embed"></div>
-          <div class="note">Map Visualisation of the proportion of the population in use of e-cigarettes in Australia.</div>
+          <div class="note">Map visualisation of the proportion of the population using e-cigarettes in Australia.</div>
         </section>
 
         <!-- Card 2: Status by state (controls) -->
-        <section class="card">
-          <h2>Status of the use of E-cigarettes in Australian States</h2>
-          <div class="legend">
+        <section class="card" aria-labelledby="status-heading">
+          <h2 id="status-heading">Status of the use of E-cigarettes in Australian States</h2>
+          <div class="legend" aria-hidden="true">
             <span style="width:10px;height:10px;border-radius:50%;background:#a10827;display:inline-block"></span> Currently use
             <span style="width:10px;height:10px;border-radius:50%;background:#d43958;display:inline-block;margin-left:10px"></span> Used to use
             <span style="width:10px;height:10px;border-radius:50%;background:#e6acb8;display:inline-block;margin-left:10px"></span> Tried once/twice
@@ -81,14 +80,7 @@
           <div class="note">Use the year dropdown and checkboxes to filter.</div>
         </section>
 
-        <!-- Card 3: Frequency by age (chart) -->
-        <section class="card">
-          <h2>Vaping frequency by age group</h2>
-          <div id="vis-frequency-bars"></div>
-          <div class="note">Grouped by frequency within each age group.</div>
-        </section>
-
-        <!-- Card 4: Text next to the chart -->
+        <!-- Card 4: Text -->
         <section class="card" aria-labelledby="insight-heading">
           <h2 id="insight-heading">Are young people struggling to control their e-cigarette use?</h2>
           <p>Overall, young people were less likely to report being unable to control their e-cigarette use than the rest of the Australian population.</p>
@@ -96,6 +88,29 @@
           <p>People who had used e-cigarettes in the past 30 days reported that they used them on an average of <strong>15 days</strong> during the past 30 days. People aged 14 to 17 had used them <strong>13 days</strong> on average during the past 30 days, while people aged 18 to 24 had done so an average of <strong>14 days</strong>.</p>
           <p>Almost <strong>1 in 4 (23%)</strong> people aged 14 to 17 who were currently using e-cigarettes reported that they used e-cigarettes every day during the past 30 days. For people aged 18 to 24, it was similar (<strong>26%</strong>). These proportions were lower than other age groups.</p>
         </section>
+
+        <!-- Card 3: Frequency by age (chart) -->
+        <section class="card" aria-labelledby="freq-heading">
+          <h2 id="freq-heading">Vaping frequency by age group</h2>
+          <div id="vis-frequency-bars"></div>
+          <div class="note">Grouped by frequency within each age group.</div>
+        </section>
+
+        <section class="card" aria-labelledby="smoke-diverge-heading">
+  <h2 id="smoke-diverge-heading">Current daily smokers by age & sex (2022)</h2>
+  <div id="vis-smoking-diverge"></div>
+  <div class="note">Females shown on the left, Males on the right.</div>
+
+  <h3 style="margin:14px 0 6px;font-size:16px;">In 2022:</h3>
+  <ul style="margin:0 0 6px 18px; padding:0;">
+    <li>Almost three in ten (<strong>29.6%</strong>) adults were ex-smokers.</li>
+    <li>Nearly three in five (<strong>58.3%</strong>) had never smoked, up from <strong>51.1%</strong> in 2011–12.</li>
+    <li>Females were more likely than males to have never smoked (<strong>64.6%</strong> vs <strong>51.7%</strong>).</li>
+    <li>Young adults aged 18–24 were the most likely to have never smoked (<strong>79.2%</strong>).</li>
+    <li>Most young people aged 15–17 reported never smoking in 2022 (<strong>94.1%</strong>), up from <strong>89.9%</strong> in 2011–12.</li>
+  </ul>
+</section>
+
       </div>
     </div>
   </main>
@@ -103,12 +118,15 @@
   <footer>FIT3179 Assignment 2 Kam Ying Hey 34726888</footer>
 
 <script>
+/* cache-buster for remote CSVs (prevents stale caches) */
+const csvV = "v=2025-10-21-12-00";
+
 /* ===== Choropleth (states filled) ===== */
 const mapSpec = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  "width": 800,
+  "width": "container",
   "height": 450,
-  "title": "Vaping amongst Australian States (Currently use, 2022-2023)",
+  "autosize": {"type":"fit","contains":"padding"},
   "projection": {"type": "mercator"},
   "layer": [
     {
@@ -125,7 +143,7 @@ const mapSpec = {
       },
       "transform": [
         {
-          "lookup": "properties.State_NAME",
+          "lookup": "properties.STATE_NAME",
           "from": {
             "data": {
               "values": [
@@ -145,35 +163,40 @@ const mapSpec = {
         },
         {"calculate": "toNumber(datum.Percent)/100", "as": "percent"}
       ],
-      "mark": {"type":"geoshape","stroke":"white"},
+      "mark": {
+        "type":"geoshape",
+        "stroke":"white",
+        "strokeWidth":0.8,
+        "strokeJoin":"round",
+        "strokeMiterLimit":2
+      },
       "encoding": {
         "color": {
-          "field": "percent","type":"quantitative",
-          "scale":{"scheme":"darkred"},
-          "legend":{
-            "title":null,
-            "format":".1%"
-          }
+          "field": "percent",
+          "type": "quantitative",
+          "scale": {
+            "domain": [0.037, 0.079],
+            "range": ["#ffd4dc", "#e6acb8", "#d43958", "#a10827"]
+          },
+          "legend": { "title": null, "format": ".1%" }
         },
         "tooltip": [
           {"field": "properties.STATE_NAME", "type": "nominal", "title": "State"},
           {"field": "Percent", "type": "quantitative", "format": ".1f", "title": "Vaping (%)"}
         ]
-    }  
+      }
     }
   ]
 };
 
-
 /* ===== Grouped bars with controls (by state) ===== */
 const barsSpec = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
-  /* responsive */
   "width": "container",
   "height": 360,
   "autosize": {"type":"fit","contains":"padding"},
   "data": {
-    "url": "https://raw.githubusercontent.com/Kace19/FIT3179/main/ByState.csv",
+    "url": `https://raw.githubusercontent.com/Kace19/FIT3179/main/ByState.csv?${csvV}`,
     "format": {"type": "csv"}
   },
   "params":[
@@ -226,7 +249,7 @@ const barsSpec = {
         ],
         "range": ["#a10827", "#d43958", "#e6acb8", "#ffd4dc"]
       },
-      "legend": {"orient": "top"}
+      "legend": null
     }
   },
   "config": {"view": {"stroke": null}}
@@ -236,13 +259,7 @@ const barsSpec = {
 const freqBarsSpec = {
   "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
   "description": "Vaping frequency by age group (past 30 days)",
-  /* responsive */
-  "width": "container",
-  "height": 400,
-  "autosize": {"type":"fit","contains":"padding"},
-  "data": {
-    "url": "https://raw.githubusercontent.com/Kace19/FIT3179/main/frequency_by_age.csv"
-  },
+  "data": { "url": "https://raw.githubusercontent.com/Kace19/FIT3179/main/frequency_by_age.csv" },
   "mark": "bar",
   "encoding": {
     "x": {
@@ -267,6 +284,68 @@ const freqBarsSpec = {
       {"field": "proportion", "title": "Proportion (%)", "format": ".1f"}
     ]
   },
+  "width": 800,
+  "height": 400
+};
+
+/* ===== Diverging bars — daily smokers by age & sex ===== */
+const smokingDivergeSpec = {
+  "$schema": "https://vega.github.io/schema/vega-lite/v5.json",
+  "description": "Current daily smokers by age and sex, 2022 — diverging bars",
+  "width": "container",
+  "height": 360,
+  "autosize": {"type": "fit", "contains": "padding"},
+  "data": {
+    "values": [
+      {"Age group": "15-17", "Males": 1.2, "Females": 1.8},
+      {"Age group": "18-24", "Males": 9.3, "Females": 5.9},
+      {"Age group": "25-34", "Males": 13.4, "Females": 8.8},
+      {"Age group": "35-44", "Males": 13.5, "Females": 8.5},
+      {"Age group": "45-54", "Males": 15.3, "Females": 11.6},
+      {"Age group": "55-64", "Males": 17.4, "Females": 12.0},
+      {"Age group": "65-74", "Males": 9.9, "Females": 7.9},
+      {"Age group": "75 years and over", "Males": 3.8, "Females": 1.9}
+    ]
+  },
+  "transform": [
+    {"fold": ["Males", "Females"], "as": ["Sex", "Percent"]},
+    {"calculate": "toNumber(datum.Percent)", "as": "PercentNum"},
+    {"calculate": "datum.Sex === 'Females' ? -datum.PercentNum : datum.PercentNum", "as": "Value"},
+    {"calculate": "abs(datum.Value)", "as": "AbsValue"}
+  ],
+  "layer": [
+    {
+      "mark": "bar",
+      "encoding": {
+        "y": {
+          "field": "Age group",
+          "type": "ordinal",
+          "title": "Age group",
+          "sort": ["15-17","18-24","25-34","35-44","45-54","55-64","65-74","75 years and over"]
+        },
+        "x": {
+          "field": "Value",
+          "type": "quantitative",
+          "title": "Percent (%)",
+          "axis": { "labelExpr": "abs(datum.value)", "grid": true },
+          "scale": { "nice": true, "zero": true }
+        },
+        "xOffset": {"field": "Sex"},
+        "color": {
+          "field": "Sex",
+          "type": "nominal",
+          "scale": {"domain": ["Males","Females"], "range": ["#a10827","#e6acb8"]},
+          "legend": {"title": null, "orient": "top"}
+        },
+        "tooltip": [
+          {"field": "Age group", "title": "Age group"},
+          {"field": "Sex", "title": "Sex"},
+          {"field": "AbsValue", "title": "Percent (%)", "format": ".1f"}
+        ]
+      }
+    },
+    { "mark": {"type": "rule", "color": "#999"}, "encoding": { "x": {"datum": 0} } }
+  ],
   "config": {"view": {"stroke": null}}
 };
 
@@ -274,6 +353,7 @@ const freqBarsSpec = {
 vegaEmbed("#vis-map", mapSpec, {actions:false});
 vegaEmbed("#vis-bars", barsSpec, {actions:false});
 vegaEmbed("#vis-frequency-bars", freqBarsSpec, {actions:false});
+vegaEmbed("#vis-smoking-diverge", smokingDivergeSpec, {actions:false});
 </script>
 </body>
 </html>
